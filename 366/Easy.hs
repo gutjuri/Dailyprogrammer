@@ -2,11 +2,12 @@
 
 {-# LANGUAGE OverloadedStrings #-}
 
+module Easy (funnel, allRem1, enable1, funnels) where
+
 import qualified Data.ByteString.Lazy.Char8 as L8
 import           Network.HTTP.Simple
 import           System.Directory
 import           Data.List
-import           Data.Function
 import qualified Data.Set as Set
 
 -- main challenge
@@ -34,10 +35,13 @@ enable1 = do
         return $ Set.fromList $ lines words
     
 
+funnels :: Set.Set String -> String -> [String]
+funnels wl = map head . group . sort . filter (flip Set.member wl) . allRem1
+    
 bonus :: String -> IO [String]
 bonus str = do
     words <- enable1
-    return $ map head $ group $ sort $ filter (flip Set.member words) $ allRem1 str
+    return $ funnels words str
     
 -- bonus 2
 
