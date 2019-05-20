@@ -1,23 +1,24 @@
 -- https://www.reddit.com/r/dailyprogrammer/comments/bqy1cf/20190520_challenge_378_easy_the_havelhakimi/
 
-    import Data.List (sortBy)
+import Data.List (sortBy)
 
-    warmup1 :: [Int] -> [Int]
-    warmup1 = filter (/=0)
+warmup1 :: [Int] -> [Int]
+warmup1 = filter (/=0)
 
-    warmup2 :: [Int] -> [Int]
-    warmup2 = sortBy (flip compare)
+warmup2 :: [Int] -> [Int]
+warmup2 = sortBy (flip compare)
 
-    warmup3 :: Int -> [Int] -> Bool
-    warmup3 n xs = n > length xs
+warmup3 :: Int -> [Int] -> Bool
+warmup3 n xs = n > length xs
 
-    warmup4 :: Int -> [Int] -> [Int]
-    warmup4 n xs = (map (subtract 1) $ take n xs) ++ drop n xs
+warmup4 :: Int -> [Int] -> [Int]
+warmup4 n xs = (map (subtract 1) $ take n xs) ++ drop n xs
 
-    hh :: [Int] -> Bool
-    hh aws = case warmup2 $ warmup1 aws of
-                [] -> True
-                (x:xs) -> if warmup3 x xs then False else hh $ warmup4 x xs
+hh :: [Int] -> Bool
+hh aws = case warmup2 $ warmup1 aws of
+            [] -> True
+            (x:xs) -> if warmup3 x xs then False else hh $ warmup4 x xs
+
 
 --tests :: Bool
 tests = not (any hh 
