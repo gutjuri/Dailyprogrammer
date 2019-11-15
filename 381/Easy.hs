@@ -2,17 +2,17 @@
 
 module Main where
 
-import qualified Data.Map.Strict as M
+import qualified Data.HashMap.Strict as M
 import           Data.List (foldl')
 
 yahtzee_upper :: [Int] -> Int
 yahtzee_upper = maxValue . foldl' (\m x -> M.insertWith (+) x x m) M.empty
 
-maxValue :: Ord a => M.Map k a -> a
+maxValue :: Ord a => M.HashMap k a -> a
 maxValue = maximum . map snd . M.toList
 
 testLargeInput :: IO Int
-testLargeInput = readFile "inp-easy.txt" >>= return . yahtzee_upper . map read . lines
+testLargeInput = yahtzee_upper . map read . lines <$> readFile "inp-easy.txt" 
 
 main :: IO ()
-main = testLargeInput >>= putStrLn . show
+main = print =<< testLargeInput
