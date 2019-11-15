@@ -8,8 +8,8 @@ import           Data.List (foldl')
 yahtzee_upper :: [Int] -> Int
 yahtzee_upper = maxValue . foldl' (\m x -> M.insertWith (+) x x m) M.empty
 
-maxValue :: Ord a => M.Map k a -> a
-maxValue = maximum . map snd . M.toList
+maxValue :: (Ord a, Num a) => M.Map k a -> a
+maxValue = M.foldl' max 0
 
 testLargeInput :: IO Int
 testLargeInput = readFile "inp-easy.txt" >>= return . yahtzee_upper . map read . lines
