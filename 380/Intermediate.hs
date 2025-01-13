@@ -29,3 +29,5 @@ smalpha = reverse . fromJust . smalpha' codes ""
 
 bonus1 :: IO ()
 bonus1 = readFile "inputIntermediate.txt" >>= sequence_ . map putStrLn . map smalpha . lines
+
+main = bonus1
